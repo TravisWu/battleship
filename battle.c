@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 void buildBoard(int board[][5])
 {
@@ -58,15 +59,48 @@ void makeShips(int ships[][2])
 		}
 	}
 }
+
+/*
 void shoot(int shot[2])
 {
+	int ans;
 	printf("choose row: ");
-	scanf("%d", &shot[0]);
+	ans = scanf("%d", &shot[0]);
 	shot[0]--; 
 
 	printf("choose the column: ");
 	scanf("%d", &shot[1]);
 	shot[1]--;	
+}
+*/
+
+void shoot (int shot[2]) {
+	shot[0] = theRow();
+	shot[0]--;
+	shot[1] = column();
+	shot[1]--;
+}
+
+int theRow() {
+	int row;
+	printf("Enter the row you would like to target:\n ");
+	scanf("%d", &row);
+	if (row > 5) {
+		printf("Error: Out of range!\n");
+		theRow();
+	} 
+	return row;
+}
+
+int column() {
+	int col;
+	printf("Enter the column you would like to target:\n ");
+	scanf("%d", &col);
+	if (col > 5) {
+		printf("Error: Out of range!\n");
+		column();
+	}
+	return col;
 }
 
 int hit(int shot[2], int ships[][2])
