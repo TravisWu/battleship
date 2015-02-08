@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+
 void buildBoard(int board[][5])
 {
 	int row, column;
-		for(row=0 ; row <5 ; row++)
-			for(column=0; column <5; column ++)
+	for(row=0 ; row <5 ; row++)
+		for(column=0; column <5; column ++)
 			board[row][column] = -1;
 }
 
@@ -14,29 +15,39 @@ void displayBoard(int board[][5])
 {
 	int row, column;
 
-
-		for (row= 0; row <5; row++)
-		{
-			for (column = 0; column <5 ; column++)
-			{
-				if(board[row][column]== -1)
-				{
-					printf("\tO");
-				} 
-				else if (board[row][column]==0)
-				{
-					printf("\tX");
-				} 
-				else if (board[row][column]==1)
-				{
-					printf("\tY");
-				}
-				
-			}
-				printf("\n");
+	for (row= 0; row <5; row++)
+	{
+		if(row == 0) {
+			printf("   1   2   3   4   5 \n");
+			printf(" *-------------------*\n");
 		}
+
+		printf("%d|",row+1);
+
+		for (column = 0; column <5 ; column++)
+		{
+			if(board[row][column]== -1)
+			{
+				printf("   |");
+			} 
+			else if (board[row][column]==0)
+			{
+				printf(" X |");
+			} 
+			else if (board[row][column]==1)
+			{
+				printf(" Y |");
+			}
 			
+		}
+
+		if(row == 4)  
+			printf("\n *-------------------*\n");
+		else
+			printf("\n |---|---|---|---|---|\n");
 	}
+			
+}
 void makeShips(int ships[][2])
 {
 	srand(time(NULL));
@@ -83,7 +94,7 @@ void shoot (int shot[2]) {
 
 int theRow() {
 	int row;
-	printf("Enter the row you would like to target:\n ");
+	printf("Enter the row you would like to target: ");
 	scanf("%d", &row);
 	if (row > 5) {
 		printf("Error: Out of range!\n");
@@ -94,7 +105,7 @@ int theRow() {
 
 int column() {
 	int col;
-	printf("Enter the column you would like to target:\n ");
+	printf("Enter the column you would like to target: ");
 	scanf("%d", &col);
 	if (col > 5) {
 		printf("Error: Out of range!\n");
@@ -118,6 +129,7 @@ int hit(int shot[2], int ships[][2])
     }
  void tip(int shot[2], int ships[][2], int attempt)
  {
+ 	system("clear");
  	int row = 0;
  	int column =0;
  	int sub;
@@ -143,6 +155,7 @@ int hit(int shot[2], int ships[][2])
 
 int main()
 {
+	system("clear");
 	int board[5][5];
 	int ships[3][2];
 	int shot[2];
@@ -153,16 +166,16 @@ int main()
 
 	printf("\n");
 	do 
-	{ 
+	{ 	
 		displayBoard(board);
 		shoot(shot);
 		attempts++;
 		if (hit(shot,ships))
-		{
+		{	
 			tip(shot, ships, attempts);
 			hits++ ;
 		}
-		else 
+		else
 			tip(shot, ships, attempts); 
 			refreshBoard(shot,ships,board);
 
