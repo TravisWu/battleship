@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 
 void buildBoard(int board[][5])
@@ -71,20 +70,6 @@ void makeShips(int ships[][2])
 	}
 }
 
-/*
-void shoot(int shot[2])
-{
-	int ans;
-	printf("choose row: ");
-	ans = scanf("%d", &shot[0]);
-	shot[0]--; 
-
-	printf("choose the column: ");
-	scanf("%d", &shot[1]);
-	shot[1]--;	
-}
-*/
-
 void shoot (int shot[2]) {
 	shot[0] = theRow();
 	shot[0]--;
@@ -96,9 +81,9 @@ int theRow() {
 	int row;
 	printf("Enter the row you would like to target: ");
 	scanf("%d", &row);
-	if (row > 5) {
-		printf("Error: Out of range!\n");
-		theRow();
+	if ((row > 5) || (row < 1)) {
+		printf("Out of range! You must choose between 1 and 5.\n");
+		row = theRow();
 	} 
 	return row;
 }
@@ -107,10 +92,10 @@ int column() {
 	int col;
 	printf("Enter the column you would like to target: ");
 	scanf("%d", &col);
-	if (col > 5) {
-		printf("Error: Out of range!\n");
-		column();
-	}
+	if ((col > 5) || (col < 1)) {
+		printf("Out of range! You must choose between 1 and 5.\n");
+		col = column();
+	} 
 	return col;
 }
 
@@ -130,18 +115,20 @@ int hit(int shot[2], int ships[][2])
  void tip(int shot[2], int ships[][2], int attempt)
  {
  	system("clear");
+ 	int counter = 20;
  	int row = 0;
  	int column =0;
  	int sub;
 
+	printf("You have %d attempts left.\n", (counter-attempt));
  	for(sub=0 ; sub <3 ; sub ++)
  	{
  		if (ships[sub][0] == shot[0])
- 			row ++;
+ 			row++;
  		if (ships[row][1] == shot[1])
- 			column++ ; 
+ 			column++; 
  	}	
- 	printf("\nturn %d: \nrow %d : %d ships\ncolumn %d : %d ships\n",attempt,shot[0]+1,row,shot[1]+1,column);
+ 	printf("\nturn %d: \nrow %d : %d ships\ncolumn %d : %d ships\n",(attempt+1),shot[0]+1,row,shot[1]+1,column);
 
  }
  void refreshBoard(int shot[2], int ships[][2], int board[][5])
@@ -161,9 +148,11 @@ int main()
 	int shot[2];
 	int attempts = 0;
 	int hits = 0;
+	int counter = 20;
+	int ta;
 	buildBoard(board);
 	makeShips(ships);
-
+	printf("You have %d attempts left.\n", (counter-attempts));
 	printf("\n");
 	do 
 	{ 	
@@ -179,8 +168,25 @@ int main()
 			tip(shot, ships, attempts); 
 			refreshBoard(shot,ships,board);
 
+			if (attempts == counter) {
+			printf ("Game Over!\n");
+			printf("\n Try again? (1 for Yes, 2 for No) ");
+			scanf("%d", &ta);
+			if (ta == 1) {
+				main();
+			} else {
+				exit(0);
+			}
+		}
 	}
 	while (hits!=3);
-	printf("\n finished. You hit all 3 ships in %d attempts", attempts);
+	printf("\n finished. You hit all 3 ships in %d attempts\n", attempts);
 	displayBoard(board);
+	printf("\n Try again? (1 for Yes, 2 for No) ");
+	scanf("%d", &ta);
+	if (ta == 1) {
+		main();
+	} else {
+		exit(0);
+	}
 }
