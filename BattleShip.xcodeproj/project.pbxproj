@@ -1,0 +1,251 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE3FF84E1A896C7200DE05EC /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF84D1A896C7200DE05EC /* main.c */; };
+		EE3FF8571A896F8000DE05EC /* battle.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8541A896F8000DE05EC /* battle.c */; };
+		EE3FF8581A896F8000DE05EC /* battleFinal.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8551A896F8000DE05EC /* battleFinal.c */; };
+		EE3FF8591A896F8000DE05EC /* testAssembly.s in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8561A896F8000DE05EC /* testAssembly.s */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE3FF8481A896C7200DE05EC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EE3FF84A1A896C7200DE05EC /* BattleShip */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattleShip; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE3FF84D1A896C7200DE05EC /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		EE3FF8541A896F8000DE05EC /* battle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battle.c; sourceTree = SOURCE_ROOT; };
+		EE3FF8551A896F8000DE05EC /* battleFinal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battleFinal.c; sourceTree = SOURCE_ROOT; };
+		EE3FF8561A896F8000DE05EC /* testAssembly.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = testAssembly.s; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE3FF8471A896C7200DE05EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE3FF8411A896C7200DE05EC = {
+			isa = PBXGroup;
+			children = (
+				EE3FF84C1A896C7200DE05EC /* BattleShip */,
+				EE3FF84B1A896C7200DE05EC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE3FF84B1A896C7200DE05EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE3FF84A1A896C7200DE05EC /* BattleShip */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE3FF84C1A896C7200DE05EC /* BattleShip */ = {
+			isa = PBXGroup;
+			children = (
+				EE3FF8541A896F8000DE05EC /* battle.c */,
+				EE3FF8551A896F8000DE05EC /* battleFinal.c */,
+				EE3FF8561A896F8000DE05EC /* testAssembly.s */,
+				EE3FF84D1A896C7200DE05EC /* main.c */,
+			);
+			path = BattleShip;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE3FF8491A896C7200DE05EC /* BattleShip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE3FF8511A896C7200DE05EC /* Build configuration list for PBXNativeTarget "BattleShip" */;
+			buildPhases = (
+				EE3FF8461A896C7200DE05EC /* Sources */,
+				EE3FF8471A896C7200DE05EC /* Frameworks */,
+				EE3FF8481A896C7200DE05EC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BattleShip;
+			productName = BattleShip;
+			productReference = EE3FF84A1A896C7200DE05EC /* BattleShip */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE3FF8421A896C7200DE05EC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "TA Labs";
+				TargetAttributes = {
+					EE3FF8491A896C7200DE05EC = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = EE3FF8451A896C7200DE05EC /* Build configuration list for PBXProject "BattleShip" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EE3FF8411A896C7200DE05EC;
+			productRefGroup = EE3FF84B1A896C7200DE05EC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE3FF8491A896C7200DE05EC /* BattleShip */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE3FF8461A896C7200DE05EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3FF84E1A896C7200DE05EC /* main.c in Sources */,
+				EE3FF8571A896F8000DE05EC /* battle.c in Sources */,
+				EE3FF8581A896F8000DE05EC /* battleFinal.c in Sources */,
+				EE3FF8591A896F8000DE05EC /* testAssembly.s in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EE3FF84F1A896C7200DE05EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EE3FF8501A896C7200DE05EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EE3FF8521A896C7200DE05EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EE3FF8531A896C7200DE05EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE3FF8451A896C7200DE05EC /* Build configuration list for PBXProject "BattleShip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3FF84F1A896C7200DE05EC /* Debug */,
+				EE3FF8501A896C7200DE05EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE3FF8511A896C7200DE05EC /* Build configuration list for PBXNativeTarget "BattleShip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3FF8521A896C7200DE05EC /* Debug */,
+				EE3FF8531A896C7200DE05EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE3FF8421A896C7200DE05EC /* Project object */;
+}
