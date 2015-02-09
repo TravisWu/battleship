@@ -157,9 +157,8 @@ int hit(int shot[2], int ships[][2]) {
     return 0;
 }
 
-void tip(int shot[2], int ships[][2], int attempt) {
+void tip(int shot[2], int ships[][2], int attempt,int counter) {
 	system("clear");
-	int counter = 19;
 	int row = 0;
 	int column =0;
 	int sub;
@@ -182,16 +181,30 @@ void refreshBoard(int shot[2], int ships[][2], int board[][5]) {
 }
 
 int main() {
-	int option;
+	int check;
 	int choice;
-
+	int counter = 0;
+	
 	system("clear");
 	printf("Welcome to BattleShip!\n");
 	printf("******** GAME SETUP ********\n");
 	printf("How would you like hits to be represented\n1) X\n2) H\n3) 1\n4) Y\n ");
 	printf("Enter option (1-4) or any key to exit:");
-	option = scanf("%d", &choice);
+	check = scanf("%d", &choice);
 	getchar();
+
+	printf("\nEnter the maximum number of attempts allowed:");
+	while (counter == 0){
+		check = scanf("%d", &counter);
+		if(check ==1){
+			if(counter<4) {
+				counter = 0;
+				printf("Number too small; Please enter another number:");
+			}
+		}
+		getchar();
+	}
+
 	if ((choice == 1) || (choice == 2) || (choice == 3) || (choice == 4)) {
 		system("clear");
 		int board[5][5];
@@ -199,7 +212,6 @@ int main() {
 		int shot[2];
 		int attempts = 0;
 		int hits = 0;
-		int counter = 19;
 		int ta;
 		buildBoard(board);
 		makeShips(ships);
@@ -211,10 +223,10 @@ int main() {
 			shoot(shot);
 			attempts++;
 			if (hit(shot,ships)) {	
-				tip(shot, ships, attempts);
+				tip(shot, ships, attempts,counter);
 				hits++ ;
 			}else
-				tip(shot, ships, attempts); 
+				tip(shot, ships, attempts,counter); 
 
 			refreshBoard(shot,ships,board);
 			if (attempts == counter) {
