@@ -188,7 +188,7 @@ int main() {
 	system("clear");
 	printf("Welcome to BattleShip!\n");
 	printf("******** GAME SETUP ********\n");
-	printf("How would you like hits to be represented\n1) X\n2) H\n2) 1\n4) Y\n");
+	printf("How would you like hits to be represented\n1) X\n2) H\n3) 1\n4) Y\n");
 	printf("Enter option (1-4):");
 	check = scanf("%d", &choice);
 	getchar();
