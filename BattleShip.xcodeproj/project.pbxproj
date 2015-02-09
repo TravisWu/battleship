@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		EE3FF84E1A896C7200DE05EC /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF84D1A896C7200DE05EC /* main.c */; };
+		EE3FF8571A896F8000DE05EC /* battle.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8541A896F8000DE05EC /* battle.c */; };
+		EE3FF8581A896F8000DE05EC /* battleFinal.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8551A896F8000DE05EC /* battleFinal.c */; };
+		EE3FF8591A896F8000DE05EC /* testAssembly.s in Sources */ = {isa = PBXBuildFile; fileRef = EE3FF8561A896F8000DE05EC /* testAssembly.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		EE3FF84A1A896C7200DE05EC /* BattleShip */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BattleShip; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3FF84D1A896C7200DE05EC /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		EE3FF8541A896F8000DE05EC /* battle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battle.c; sourceTree = SOURCE_ROOT; };
+		EE3FF8551A896F8000DE05EC /* battleFinal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battleFinal.c; sourceTree = SOURCE_ROOT; };
+		EE3FF8561A896F8000DE05EC /* testAssembly.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = testAssembly.s; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,9 @@
 		EE3FF84C1A896C7200DE05EC /* BattleShip */ = {
 			isa = PBXGroup;
 			children = (
+				EE3FF8541A896F8000DE05EC /* battle.c */,
+				EE3FF8551A896F8000DE05EC /* battleFinal.c */,
+				EE3FF8561A896F8000DE05EC /* testAssembly.s */,
 				EE3FF84D1A896C7200DE05EC /* main.c */,
 			);
 			path = BattleShip;
@@ -119,6 +128,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE3FF84E1A896C7200DE05EC /* main.c in Sources */,
+				EE3FF8571A896F8000DE05EC /* battle.c in Sources */,
+				EE3FF8581A896F8000DE05EC /* battleFinal.c in Sources */,
+				EE3FF8591A896F8000DE05EC /* testAssembly.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
