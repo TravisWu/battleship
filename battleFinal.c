@@ -1,5 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+int theRow();
+int column();
+void shoot(int*);
+void makeShips(int(*)[2]);
+int main();
 
 void buildBoard(int board[][5]) {
 	int row;
