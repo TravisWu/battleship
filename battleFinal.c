@@ -14,6 +14,20 @@ void displayBoard(int board[][5], int choice) {
 	int row;
 	int column;
 
+	char* miss = " X |";
+	char* hit = " Y |";
+
+	if (choice == 1) {
+		miss = " O |";
+		hit = " x |";		
+	} else if (choice == 2) {
+		miss = " M |";
+		hit = " H |";		
+	} else if (choice == 3) {
+		miss = " 0 |";
+		hit = " 1 |";		
+	}
+
 	for (row= 0; row <5; row++) {
 		if(row == 0) {
 			printf("   1   2   3   4   5 \n");
@@ -22,53 +36,15 @@ void displayBoard(int board[][5], int choice) {
 
 		printf("%d|",row+1);
 
-		if (choice == 1) {
-			for (column = 0; column <5 ; column++) {
-				if(board[row][column]== -1)	{
-					printf("   |");
-				} 
-				else if (board[row][column]==0)	{
-					printf(" O |");
-				} 
-				else if (board[row][column]==1) {
-					printf(" X |");
-				}
-			}
-		} else if (choice == 2) {
-			for (column = 0; column <5 ; column++) {
-				if(board[row][column]== -1)	{
-					printf("   |");
-				} 
-				else if (board[row][column]==0)	{
-					printf(" M |");
-				} 
-				else if (board[row][column]==1) {
-					printf(" H |");
-				}
-			}
-		} else if (choice == 3) {
-			for (column = 0; column <5 ; column++) {
-				if(board[row][column]== -1)	{
-					printf("   |");
-				} 
-				else if (board[row][column]==0)	{
-					printf(" 0 |");
-				} 
-				else if (board[row][column]==1) {
-					printf(" 1 |");
-				}
-			}
-		} else {
-			for (column = 0; column <5 ; column++) {
-				if(board[row][column]== -1) {
-					printf("   |");
-				} 
-				else if (board[row][column]==0) {
-					printf(" X |");
-				} 
-				else if (board[row][column]==1) {
-					printf(" Y |");
-				}	
+		for (column = 0; column <5 ; column++) {
+			if(board[row][column]== -1)	{
+				printf("   |");
+			} 
+			else if (board[row][column]==0)	{
+				printf("%s",miss);
+			} 
+			else if (board[row][column]==1) {
+				printf("%s",hit);
 			}
 		}
 
