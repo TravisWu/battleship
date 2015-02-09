@@ -1,1053 +1,1129 @@
+	.arch armv6
+	.eabi_attribute 27, 3
+	.eabi_attribute 28, 1
+	.fpu vfp
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 2
+	.eabi_attribute 30, 6
+	.eabi_attribute 18, 4
 	.file	"battleFinal.c"
 	.text
-	.globl	buildBoard
-	.type	buildBoard, @function
+	.align	2
+	.global	buildBoard
+	.type	buildBoard, %function
 buildBoard:
-.LFB0:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	movq	%rdi, -24(%rbp)
-	movl	$0, -8(%rbp)
-	jmp	.L2
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	@ link register save eliminated.
+	str	fp, [sp, #-4]!
+	add	fp, sp, #0
+	sub	sp, sp, #20
+	str	r0, [fp, #-16]
+	mov	r3, #0
+	str	r3, [fp, #-8]
+	b	.L2
 .L5:
-	movl	$0, -4(%rbp)
-	jmp	.L3
+	mov	r3, #0
+	str	r3, [fp, #-12]
+	b	.L3
 .L4:
-	movl	-8(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-24(%rbp), %rax
-	movl	-4(%rbp), %edx
-	movslq	%edx, %rdx
-	movl	$-1, (%rax,%rdx,4)
-	addl	$1, -4(%rbp)
+	ldr	r2, [fp, #-8]
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-16]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-12]
+	mvn	r1, #0
+	str	r1, [r3, r2, asl #2]
+	ldr	r3, [fp, #-12]
+	add	r3, r3, #1
+	str	r3, [fp, #-12]
 .L3:
-	cmpl	$4, -4(%rbp)
-	jle	.L4
-	addl	$1, -8(%rbp)
+	ldr	r3, [fp, #-12]
+	cmp	r3, #4
+	ble	.L4
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	str	r3, [fp, #-8]
 .L2:
-	cmpl	$4, -8(%rbp)
-	jle	.L5
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE0:
+	ldr	r3, [fp, #-8]
+	cmp	r3, #4
+	ble	.L5
+	add	sp, fp, #0
+	ldmfd	sp!, {fp}
+	bx	lr
 	.size	buildBoard, .-buildBoard
 	.section	.rodata
+	.align	2
 .LC0:
-	.string	" X |"
+	.ascii	" X |\000"
+	.align	2
 .LC1:
-	.string	" Y |"
+	.ascii	" Y |\000"
+	.align	2
 .LC2:
-	.string	" O |"
+	.ascii	" O |\000"
+	.align	2
 .LC3:
-	.string	" x |"
+	.ascii	" x |\000"
+	.align	2
 .LC4:
-	.string	" M |"
+	.ascii	" M |\000"
+	.align	2
 .LC5:
-	.string	" H |"
+	.ascii	" H |\000"
+	.align	2
 .LC6:
-	.string	" 0 |"
+	.ascii	" 0 |\000"
+	.align	2
 .LC7:
-	.string	" 1 |"
+	.ascii	" 1 |\000"
+	.align	2
 .LC8:
-	.string	"   1   2   3   4   5 "
+	.ascii	"   1   2   3   4   5 \000"
+	.align	2
 .LC9:
-	.string	" *-------------------*"
+	.ascii	" *-------------------*\000"
+	.align	2
 .LC10:
-	.string	"%d|"
+	.ascii	"%d|\000"
+	.align	2
 .LC11:
-	.string	"   |"
+	.ascii	"   |\000"
+	.align	2
 .LC12:
-	.string	"%s"
+	.ascii	"%s\000"
+	.align	2
 .LC13:
-	.string	"\n *-------------------*"
+	.ascii	"\012 *-------------------*\000"
+	.align	2
 .LC14:
-	.string	"\n |---|---|---|---|---|"
+	.ascii	"\012 |---|---|---|---|---|\000"
 	.text
-	.globl	displayBoard
-	.type	displayBoard, @function
+	.align	2
+	.global	displayBoard
+	.type	displayBoard, %function
 displayBoard:
-.LFB1:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$48, %rsp
-	movq	%rdi, -40(%rbp)
-	movl	%esi, -44(%rbp)
-	movq	$.LC0, -24(%rbp)
-	movq	$.LC1, -16(%rbp)
-	cmpl	$1, -44(%rbp)
-	jne	.L7
-	movq	$.LC2, -24(%rbp)
-	movq	$.LC3, -16(%rbp)
-	jmp	.L8
+	@ args = 0, pretend = 0, frame = 24
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #24
+	str	r0, [fp, #-24]
+	str	r1, [fp, #-28]
+	ldr	r3, .L20
+	str	r3, [fp, #-16]
+	ldr	r3, .L20+4
+	str	r3, [fp, #-20]
+	ldr	r3, [fp, #-28]
+	cmp	r3, #1
+	bne	.L7
+	ldr	r3, .L20+8
+	str	r3, [fp, #-16]
+	ldr	r3, .L20+12
+	str	r3, [fp, #-20]
+	b	.L8
 .L7:
-	cmpl	$2, -44(%rbp)
-	jne	.L9
-	movq	$.LC4, -24(%rbp)
-	movq	$.LC5, -16(%rbp)
-	jmp	.L8
+	ldr	r3, [fp, #-28]
+	cmp	r3, #2
+	bne	.L9
+	ldr	r3, .L20+16
+	str	r3, [fp, #-16]
+	ldr	r3, .L20+20
+	str	r3, [fp, #-20]
+	b	.L8
 .L9:
-	cmpl	$3, -44(%rbp)
-	jne	.L8
-	movq	$.LC6, -24(%rbp)
-	movq	$.LC7, -16(%rbp)
+	ldr	r3, [fp, #-28]
+	cmp	r3, #3
+	bne	.L8
+	ldr	r3, .L20+24
+	str	r3, [fp, #-16]
+	ldr	r3, .L20+28
+	str	r3, [fp, #-20]
 .L8:
-	movl	$0, -8(%rbp)
-	jmp	.L10
+	mov	r3, #0
+	str	r3, [fp, #-8]
+	b	.L10
 .L19:
-	cmpl	$0, -8(%rbp)
-	jne	.L11
-	movl	$.LC8, %edi
-	call	puts
-	movl	$.LC9, %edi
-	call	puts
+	ldr	r3, [fp, #-8]
+	cmp	r3, #0
+	bne	.L11
+	ldr	r0, .L20+32
+	bl	puts
+	ldr	r0, .L20+36
+	bl	puts
 .L11:
-	movl	-8(%rbp), %eax
-	leal	1(%rax), %edx
-	movl	$.LC10, %eax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$0, -4(%rbp)
-	jmp	.L12
+	ldr	r2, .L20+40
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	mov	r0, r2
+	mov	r1, r3
+	bl	printf
+	mov	r3, #0
+	str	r3, [fp, #-12]
+	b	.L12
 .L16:
-	movl	-8(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-40(%rbp), %rax
-	movl	-4(%rbp), %edx
-	movslq	%edx, %rdx
-	movl	(%rax,%rdx,4), %eax
-	cmpl	$-1, %eax
-	jne	.L13
-	movl	$.LC11, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	jmp	.L14
+	ldr	r2, [fp, #-8]
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-12]
+	ldr	r3, [r3, r2, asl #2]
+	cmn	r3, #1
+	bne	.L13
+	ldr	r3, .L20+44
+	mov	r0, r3
+	bl	printf
+	b	.L14
 .L13:
-	movl	-8(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-40(%rbp), %rax
-	movl	-4(%rbp), %edx
-	movslq	%edx, %rdx
-	movl	(%rax,%rdx,4), %eax
-	testl	%eax, %eax
-	jne	.L15
-	movl	$.LC12, %eax
-	movq	-24(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	jmp	.L14
+	ldr	r2, [fp, #-8]
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-12]
+	ldr	r3, [r3, r2, asl #2]
+	cmp	r3, #0
+	bne	.L15
+	ldr	r3, .L20+48
+	mov	r0, r3
+	ldr	r1, [fp, #-16]
+	bl	printf
+	b	.L14
 .L15:
-	movl	-8(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-40(%rbp), %rax
-	movl	-4(%rbp), %edx
-	movslq	%edx, %rdx
-	movl	(%rax,%rdx,4), %eax
-	cmpl	$1, %eax
-	jne	.L14
-	movl	$.LC12, %eax
-	movq	-16(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
+	ldr	r2, [fp, #-8]
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-12]
+	ldr	r3, [r3, r2, asl #2]
+	cmp	r3, #1
+	bne	.L14
+	ldr	r3, .L20+48
+	mov	r0, r3
+	ldr	r1, [fp, #-20]
+	bl	printf
 .L14:
-	addl	$1, -4(%rbp)
+	ldr	r3, [fp, #-12]
+	add	r3, r3, #1
+	str	r3, [fp, #-12]
 .L12:
-	cmpl	$4, -4(%rbp)
-	jle	.L16
-	cmpl	$4, -8(%rbp)
-	jne	.L17
-	movl	$.LC13, %edi
-	call	puts
-	jmp	.L18
+	ldr	r3, [fp, #-12]
+	cmp	r3, #4
+	ble	.L16
+	ldr	r3, [fp, #-8]
+	cmp	r3, #4
+	bne	.L17
+	ldr	r0, .L20+52
+	bl	puts
+	b	.L18
 .L17:
-	movl	$.LC14, %edi
-	call	puts
+	ldr	r0, .L20+56
+	bl	puts
 .L18:
-	addl	$1, -8(%rbp)
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	str	r3, [fp, #-8]
 .L10:
-	cmpl	$4, -8(%rbp)
-	jle	.L19
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE1:
-	.size	displayBoard, .-displayBoard
-	.globl	makeShips
-	.type	makeShips, @function
-makeShips:
-.LFB2:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	pushq	%rbx
-	subq	$40, %rsp
-	movq	%rdi, -40(%rbp)
-	movl	$0, %edi
-	.cfi_offset 3, -24
-	call	time
-	movl	%eax, %edi
-	call	srand
-	movl	$0, -24(%rbp)
-	jmp	.L21
-.L26:
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	movq	%rax, %rbx
-	addq	-40(%rbp), %rbx
-	call	rand
-	movl	%eax, %ecx
-	movl	$1717986919, %edx
-	movl	%ecx, %eax
-	imull	%edx
-	sarl	%edx
-	movl	%ecx, %eax
-	sarl	$31, %eax
-	subl	%eax, %edx
-	movl	%edx, %eax
-	sall	$2, %eax
-	addl	%edx, %eax
-	movl	%ecx, %edx
-	subl	%eax, %edx
-	movl	%edx, (%rbx)
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	movq	%rax, %rbx
-	addq	-40(%rbp), %rbx
-	call	rand
-	movl	%eax, %ecx
-	movl	$1717986919, %edx
-	movl	%ecx, %eax
-	imull	%edx
-	sarl	%edx
-	movl	%ecx, %eax
-	sarl	$31, %eax
-	subl	%eax, %edx
-	movl	%edx, %eax
-	sall	$2, %eax
-	addl	%edx, %eax
-	movl	%ecx, %edx
-	subl	%eax, %edx
-	movl	%edx, 4(%rbx)
-	movl	$0, -20(%rbp)
-	jmp	.L22
-.L25:
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	(%rax), %edx
-	movl	-20(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L23
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	4(%rax), %edx
-	movl	-20(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	4(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L23
-.L24:
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	movq	%rax, %rbx
-	addq	-40(%rbp), %rbx
-	call	rand
-	movl	%eax, %ecx
-	movl	$1717986919, %edx
-	movl	%ecx, %eax
-	imull	%edx
-	sarl	%edx
-	movl	%ecx, %eax
-	sarl	$31, %eax
-	subl	%eax, %edx
-	movl	%edx, %eax
-	sall	$2, %eax
-	addl	%edx, %eax
-	movl	%ecx, %edx
-	subl	%eax, %edx
-	movl	%edx, (%rbx)
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	movq	%rax, %rbx
-	addq	-40(%rbp), %rbx
-	call	rand
-	movl	%eax, %ecx
-	movl	$1717986919, %edx
-	movl	%ecx, %eax
-	imull	%edx
-	sarl	%edx
-	movl	%ecx, %eax
-	sarl	$31, %eax
-	subl	%eax, %edx
-	movl	%edx, %eax
-	sall	$2, %eax
-	addl	%edx, %eax
-	movl	%ecx, %edx
-	subl	%eax, %edx
-	movl	%edx, 4(%rbx)
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	(%rax), %edx
-	movl	-20(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L23
-	movl	-24(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	4(%rax), %edx
-	movl	-20(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-40(%rbp), %rax
-	movl	4(%rax), %eax
-	cmpl	%eax, %edx
-	je	.L24
-.L23:
-	addl	$1, -20(%rbp)
-.L22:
-	movl	-20(%rbp), %eax
-	cmpl	-24(%rbp), %eax
-	jl	.L25
-	addl	$1, -24(%rbp)
+	ldr	r3, [fp, #-8]
+	cmp	r3, #4
+	ble	.L19
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
 .L21:
-	cmpl	$2, -24(%rbp)
-	jle	.L26
-	addq	$40, %rsp
-	popq	%rbx
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE2:
+	.align	2
+.L20:
+	.word	.LC0
+	.word	.LC1
+	.word	.LC2
+	.word	.LC3
+	.word	.LC4
+	.word	.LC5
+	.word	.LC6
+	.word	.LC7
+	.word	.LC8
+	.word	.LC9
+	.word	.LC10
+	.word	.LC11
+	.word	.LC12
+	.word	.LC13
+	.word	.LC14
+	.size	displayBoard, .-displayBoard
+	.align	2
+	.global	makeShips
+	.type	makeShips, %function
+makeShips:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {r4, fp, lr}
+	add	fp, sp, #8
+	sub	sp, sp, #20
+	str	r0, [fp, #-24]
+	mov	r0, #0
+	bl	time
+	mov	r3, r0
+	mov	r0, r3
+	bl	srand
+	mov	r3, #0
+	str	r3, [fp, #-16]
+	b	.L23
+.L28:
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r4, r2, r3
+	bl	rand
+	mov	r1, r0
+	ldr	r3, .L29
+	smull	r2, r3, r3, r1
+	mov	r2, r3, asr #1
+	mov	r3, r1, asr #31
+	rsb	r2, r3, r2
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	rsb	r2, r3, r1
+	str	r2, [r4, #0]
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r4, r2, r3
+	bl	rand
+	mov	r1, r0
+	ldr	r3, .L29
+	smull	r2, r3, r3, r1
+	mov	r2, r3, asr #1
+	mov	r3, r1, asr #31
+	rsb	r2, r3, r2
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	rsb	r2, r3, r1
+	str	r2, [r4, #4]
+	mov	r3, #0
+	str	r3, [fp, #-20]
+	b	.L24
+.L27:
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [r3, #0]
+	ldr	r3, [fp, #-20]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-24]
+	add	r3, r1, r3
+	ldr	r3, [r3, #0]
+	cmp	r2, r3
+	bne	.L25
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [r3, #4]
+	ldr	r3, [fp, #-20]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-24]
+	add	r3, r1, r3
+	ldr	r3, [r3, #4]
+	cmp	r2, r3
+	bne	.L25
+.L26:
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r4, r2, r3
+	bl	rand
+	mov	r1, r0
+	ldr	r3, .L29
+	smull	r2, r3, r3, r1
+	mov	r2, r3, asr #1
+	mov	r3, r1, asr #31
+	rsb	r2, r3, r2
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	rsb	r2, r3, r1
+	str	r2, [r4, #0]
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r4, r2, r3
+	bl	rand
+	mov	r1, r0
+	ldr	r3, .L29
+	smull	r2, r3, r3, r1
+	mov	r2, r3, asr #1
+	mov	r3, r1, asr #31
+	rsb	r2, r3, r2
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	rsb	r2, r3, r1
+	str	r2, [r4, #4]
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [r3, #0]
+	ldr	r3, [fp, #-20]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-24]
+	add	r3, r1, r3
+	ldr	r3, [r3, #0]
+	cmp	r2, r3
+	bne	.L25
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-24]
+	add	r3, r2, r3
+	ldr	r2, [r3, #4]
+	ldr	r3, [fp, #-20]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-24]
+	add	r3, r1, r3
+	ldr	r3, [r3, #4]
+	cmp	r2, r3
+	beq	.L26
+.L25:
+	ldr	r3, [fp, #-20]
+	add	r3, r3, #1
+	str	r3, [fp, #-20]
+.L24:
+	ldr	r2, [fp, #-20]
+	ldr	r3, [fp, #-16]
+	cmp	r2, r3
+	blt	.L27
+	ldr	r3, [fp, #-16]
+	add	r3, r3, #1
+	str	r3, [fp, #-16]
+.L23:
+	ldr	r3, [fp, #-16]
+	cmp	r3, #2
+	ble	.L28
+	sub	sp, fp, #8
+	ldmfd	sp!, {r4, fp, pc}
+.L30:
+	.align	2
+.L29:
+	.word	1717986919
 	.size	makeShips, .-makeShips
 	.section	.rodata
-	.align 8
+	.align	2
 .LC15:
-	.string	"Enter 0 at any time to restart or exit."
+	.ascii	"Enter 0 at any time to restart or exit.\000"
 	.text
-	.globl	shoot
-	.type	shoot, @function
+	.align	2
+	.global	shoot
+	.type	shoot, %function
 shoot:
-.LFB3:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	pushq	%rbx
-	subq	$24, %rsp
-	movq	%rdi, -24(%rbp)
-	movl	$.LC15, %edi
-	.cfi_offset 3, -24
-	call	puts
-	movl	$0, %eax
-	call	theRow
-	movq	-24(%rbp), %rdx
-	movl	%eax, (%rdx)
-	movq	-24(%rbp), %rax
-	movl	(%rax), %eax
-	leal	-1(%rax), %edx
-	movq	-24(%rbp), %rax
-	movl	%edx, (%rax)
-	movq	-24(%rbp), %rax
-	leaq	4(%rax), %rbx
-	movl	$0, %eax
-	call	column
-	movl	%eax, (%rbx)
-	movq	-24(%rbp), %rax
-	addq	$4, %rax
-	movl	(%rax), %edx
-	subl	$1, %edx
-	movl	%edx, (%rax)
-	addq	$24, %rsp
-	popq	%rbx
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE3:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {r4, fp, lr}
+	add	fp, sp, #8
+	sub	sp, sp, #12
+	str	r0, [fp, #-16]
+	ldr	r0, .L32
+	bl	puts
+	bl	theRow
+	mov	r2, r0
+	ldr	r3, [fp, #-16]
+	str	r2, [r3, #0]
+	ldr	r3, [fp, #-16]
+	ldr	r3, [r3, #0]
+	sub	r2, r3, #1
+	ldr	r3, [fp, #-16]
+	str	r2, [r3, #0]
+	ldr	r3, [fp, #-16]
+	add	r4, r3, #4
+	bl	column
+	mov	r3, r0
+	str	r3, [r4, #0]
+	ldr	r3, [fp, #-16]
+	add	r3, r3, #4
+	ldr	r2, [r3, #0]
+	sub	r2, r2, #1
+	str	r2, [r3, #0]
+	sub	sp, fp, #8
+	ldmfd	sp!, {r4, fp, pc}
+.L33:
+	.align	2
+.L32:
+	.word	.LC15
 	.size	shoot, .-shoot
 	.section	.rodata
-	.align 8
+	.align	2
 .LC16:
-	.string	"Enter the row you would like to target: "
+	.ascii	"Enter the row you would like to target: \000"
+	.align	2
 .LC17:
-	.string	"%d"
-	.align 8
+	.ascii	"%d\000"
+	.align	2
 .LC18:
-	.string	"\n Would you like to reset or exit? (1 for Reset, Any key for Exit) "
+	.ascii	"\012 Would you like to reset or exit? (1 for Reset,"
+	.ascii	" Any key for Exit) \000"
+	.align	2
 .LC19:
-	.string	"Thanks for playing!"
-	.align 8
+	.ascii	"Thanks for playing!\000"
+	.align	2
 .LC20:
-	.string	"Out of range! You must choose between 1 and 5."
-	.align 8
+	.ascii	"Out of range! You must choose between 1 and 5.\000"
+	.align	2
 .LC21:
-	.string	"Not an integer! Please enter a number"
+	.ascii	"Not an integer! Please enter a number\000"
 	.text
-	.globl	theRow
-	.type	theRow, @function
+	.align	2
+	.global	theRow
+	.type	theRow, %function
 theRow:
-.LFB4:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movl	$.LC16, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-12(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	%eax, -4(%rbp)
-	cmpl	$1, -4(%rbp)
-	jne	.L29
-	movl	-12(%rbp), %eax
-	testl	%eax, %eax
-	jne	.L30
-	movl	$.LC18, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-8(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	-8(%rbp), %eax
-	cmpl	$1, %eax
-	jne	.L31
-	movl	$0, %eax
-	call	main
-	jmp	.L30
-.L31:
-	movl	$.LC19, %edi
-	call	puts
-	movl	$0, %edi
-	call	exit
-.L30:
-	movl	-12(%rbp), %eax
-	cmpl	$5, %eax
-	jg	.L32
-	movl	-12(%rbp), %eax
-	testl	%eax, %eax
-	jg	.L33
-.L32:
-	movl	$.LC20, %edi
-	call	puts
-	call	getchar
-	movl	$0, %eax
-	call	theRow
-	movl	%eax, -12(%rbp)
-	jmp	.L33
-.L29:
-	movl	$.LC21, %edi
-	call	puts
-	call	getchar
-	movl	$0, %eax
-	call	theRow
-	movl	%eax, -12(%rbp)
-.L33:
-	movl	-12(%rbp), %eax
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #16
+	ldr	r3, .L40
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L40+4
+	sub	r3, fp, #12
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	str	r0, [fp, #-8]
+	ldr	r3, [fp, #-8]
+	cmp	r3, #1
+	bne	.L35
+	ldr	r3, [fp, #-12]
+	cmp	r3, #0
+	bne	.L36
+	ldr	r3, .L40+8
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L40+4
+	sub	r3, fp, #16
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-16]
+	cmp	r3, #1
+	bne	.L37
+	bl	main
+	b	.L36
+.L37:
+	ldr	r0, .L40+12
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L36:
+	ldr	r3, [fp, #-12]
+	cmp	r3, #5
+	bgt	.L38
+	ldr	r3, [fp, #-12]
+	cmp	r3, #0
+	bgt	.L39
+.L38:
+	ldr	r0, .L40+16
+	bl	puts
+	bl	getchar
+	bl	theRow
+	mov	r3, r0
+	str	r3, [fp, #-12]
+	b	.L39
+.L35:
+	ldr	r0, .L40+20
+	bl	puts
+	bl	getchar
+	bl	theRow
+	mov	r3, r0
+	str	r3, [fp, #-12]
+.L39:
+	ldr	r3, [fp, #-12]
+	mov	r0, r3
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L41:
+	.align	2
+.L40:
+	.word	.LC16
+	.word	.LC17
+	.word	.LC18
+	.word	.LC19
+	.word	.LC20
+	.word	.LC21
 	.size	theRow, .-theRow
 	.section	.rodata
-	.align 8
+	.align	2
 .LC22:
-	.string	"Enter the column you would like to target: "
+	.ascii	"Enter the column you would like to target: \000"
 	.text
-	.globl	column
-	.type	column, @function
+	.align	2
+	.global	column
+	.type	column, %function
 column:
-.LFB5:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movl	$.LC22, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-12(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	%eax, -4(%rbp)
-	cmpl	$1, -4(%rbp)
-	jne	.L35
-	movl	-12(%rbp), %eax
-	testl	%eax, %eax
-	jne	.L36
-	movl	$.LC18, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-8(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	-8(%rbp), %eax
-	cmpl	$1, %eax
-	jne	.L37
-	movl	$0, %eax
-	call	main
-	jmp	.L36
-.L37:
-	movl	$.LC19, %edi
-	call	puts
-	movl	$0, %edi
-	call	exit
-.L36:
-	movl	-12(%rbp), %eax
-	cmpl	$5, %eax
-	jg	.L38
-	movl	-12(%rbp), %eax
-	testl	%eax, %eax
-	jg	.L39
-.L38:
-	movl	$.LC20, %edi
-	call	puts
-	movl	$0, %eax
-	call	column
-	movl	%eax, -12(%rbp)
-	jmp	.L39
-.L35:
-	movl	$.LC21, %edi
-	call	puts
-	call	getchar
-	movl	$0, %eax
-	call	column
-	movl	%eax, -12(%rbp)
-.L39:
-	movl	-12(%rbp), %eax
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE5:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #16
+	ldr	r3, .L48
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L48+4
+	sub	r3, fp, #12
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	str	r0, [fp, #-8]
+	ldr	r3, [fp, #-8]
+	cmp	r3, #1
+	bne	.L43
+	ldr	r3, [fp, #-12]
+	cmp	r3, #0
+	bne	.L44
+	ldr	r3, .L48+8
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L48+4
+	sub	r3, fp, #16
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-16]
+	cmp	r3, #1
+	bne	.L45
+	bl	main
+	b	.L44
+.L45:
+	ldr	r0, .L48+12
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L44:
+	ldr	r3, [fp, #-12]
+	cmp	r3, #5
+	bgt	.L46
+	ldr	r3, [fp, #-12]
+	cmp	r3, #0
+	bgt	.L47
+.L46:
+	ldr	r0, .L48+16
+	bl	puts
+	bl	column
+	mov	r3, r0
+	str	r3, [fp, #-12]
+	b	.L47
+.L43:
+	ldr	r0, .L48+20
+	bl	puts
+	bl	getchar
+	bl	column
+	mov	r3, r0
+	str	r3, [fp, #-12]
+.L47:
+	ldr	r3, [fp, #-12]
+	mov	r0, r3
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L49:
+	.align	2
+.L48:
+	.word	.LC22
+	.word	.LC17
+	.word	.LC18
+	.word	.LC19
+	.word	.LC20
+	.word	.LC21
 	.size	column, .-column
 	.section	.rodata
+	.align	2
 .LC23:
-	.string	"Boom (%d,%d)\n"
+	.ascii	"Boom (%d,%d)\012\000"
 	.text
-	.globl	hit
-	.type	hit, @function
+	.align	2
+	.global	hit
+	.type	hit, %function
 hit:
-.LFB6:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movq	%rdi, -24(%rbp)
-	movq	%rsi, -32(%rbp)
-	movl	$0, -4(%rbp)
-	jmp	.L41
-.L44:
-	movq	-24(%rbp), %rax
-	movl	(%rax), %edx
-	movl	-4(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-32(%rbp), %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L42
-	movq	-24(%rbp), %rax
-	addq	$4, %rax
-	movl	(%rax), %edx
-	movl	-4(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-32(%rbp), %rax
-	movl	4(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L42
-	movq	-24(%rbp), %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	leal	1(%rax), %edx
-	movq	-24(%rbp), %rax
-	movl	(%rax), %eax
-	leal	1(%rax), %ecx
-	movl	$.LC23, %eax
-	movl	%ecx, %esi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$1, %eax
-	jmp	.L43
-.L42:
-	addl	$1, -4(%rbp)
-.L41:
-	cmpl	$2, -4(%rbp)
-	jle	.L44
-	movl	$0, %eax
-.L43:
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE6:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #16
+	str	r0, [fp, #-16]
+	str	r1, [fp, #-20]
+	mov	r3, #0
+	str	r3, [fp, #-8]
+	b	.L51
+.L54:
+	ldr	r3, [fp, #-16]
+	ldr	r2, [r3, #0]
+	ldr	r3, [fp, #-8]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-20]
+	add	r3, r1, r3
+	ldr	r3, [r3, #0]
+	cmp	r2, r3
+	bne	.L52
+	ldr	r3, [fp, #-16]
+	add	r3, r3, #4
+	ldr	r2, [r3, #0]
+	ldr	r3, [fp, #-8]
+	mov	r3, r3, asl #3
+	ldr	r1, [fp, #-20]
+	add	r3, r1, r3
+	ldr	r3, [r3, #4]
+	cmp	r2, r3
+	bne	.L52
+	ldr	r1, .L55
+	ldr	r3, [fp, #-16]
+	ldr	r3, [r3, #0]
+	add	r2, r3, #1
+	ldr	r3, [fp, #-16]
+	add	r3, r3, #4
+	ldr	r3, [r3, #0]
+	add	r3, r3, #1
+	mov	r0, r1
+	mov	r1, r2
+	mov	r2, r3
+	bl	printf
+	mov	r3, #1
+	b	.L53
+.L52:
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	str	r3, [fp, #-8]
+.L51:
+	ldr	r3, [fp, #-8]
+	cmp	r3, #2
+	ble	.L54
+	mov	r3, #0
+.L53:
+	mov	r0, r3
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L56:
+	.align	2
+.L55:
+	.word	.LC23
 	.size	hit, .-hit
 	.section	.rodata
+	.align	2
 .LC24:
-	.string	"clear"
+	.ascii	"clear\000"
+	.align	2
 .LC25:
-	.string	"You have %d attempts left.\n"
-	.align 8
+	.ascii	"You have %d attempts left.\012\000"
+	.align	2
 .LC26:
-	.string	"\nTurn %d: \nRow %d : %d ships\nColumn %d : %d ships\n"
+	.ascii	"\012Turn %d: \012Row %d : %d ships\012Column %d : %"
+	.ascii	"d ships\012\000"
 	.text
-	.globl	tip
-	.type	tip, @function
+	.align	2
+	.global	tip
+	.type	tip, %function
 tip:
-.LFB7:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$48, %rsp
-	movq	%rdi, -24(%rbp)
-	movq	%rsi, -32(%rbp)
-	movl	%edx, -36(%rbp)
-	movl	%ecx, -40(%rbp)
-	movl	$.LC24, %edi
-	call	system
-	movl	$0, -12(%rbp)
-	movl	$0, -8(%rbp)
-	movl	-36(%rbp), %eax
-	movl	-40(%rbp), %edx
-	subl	%eax, %edx
-	movl	$.LC25, %eax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$0, -4(%rbp)
-	jmp	.L46
-.L49:
-	movl	-4(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-32(%rbp), %rax
-	movl	(%rax), %edx
-	movq	-24(%rbp), %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L47
-	addl	$1, -12(%rbp)
-.L47:
-	movl	-12(%rbp), %eax
-	cltq
-	salq	$3, %rax
-	addq	-32(%rbp), %rax
-	movl	4(%rax), %edx
-	movq	-24(%rbp), %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L48
-	addl	$1, -8(%rbp)
-.L48:
-	addl	$1, -4(%rbp)
-.L46:
-	cmpl	$2, -4(%rbp)
-	jle	.L49
-	movq	-24(%rbp), %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	leal	1(%rax), %r8d
-	movq	-24(%rbp), %rax
-	movl	(%rax), %eax
-	leal	1(%rax), %edi
-	movl	-36(%rbp), %eax
-	leal	1(%rax), %esi
-	movl	$.LC26, %eax
-	movl	-8(%rbp), %ecx
-	movl	-12(%rbp), %edx
-	movl	%ecx, %r9d
-	movl	%edx, %ecx
-	movl	%edi, %edx
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE7:
+	@ args = 0, pretend = 0, frame = 32
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #40
+	str	r0, [fp, #-24]
+	str	r1, [fp, #-28]
+	str	r2, [fp, #-32]
+	str	r3, [fp, #-36]
+	ldr	r0, .L62
+	bl	system
+	mov	r3, #0
+	str	r3, [fp, #-8]
+	mov	r3, #0
+	str	r3, [fp, #-12]
+	ldr	r2, .L62+4
+	ldr	r1, [fp, #-36]
+	ldr	r3, [fp, #-32]
+	rsb	r3, r3, r1
+	mov	r0, r2
+	mov	r1, r3
+	bl	printf
+	mov	r3, #0
+	str	r3, [fp, #-16]
+	b	.L58
+.L61:
+	ldr	r3, [fp, #-16]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-28]
+	add	r3, r2, r3
+	ldr	r2, [r3, #0]
+	ldr	r3, [fp, #-24]
+	ldr	r3, [r3, #0]
+	cmp	r2, r3
+	bne	.L59
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	str	r3, [fp, #-8]
+.L59:
+	ldr	r3, [fp, #-8]
+	mov	r3, r3, asl #3
+	ldr	r2, [fp, #-28]
+	add	r3, r2, r3
+	ldr	r2, [r3, #4]
+	ldr	r3, [fp, #-24]
+	add	r3, r3, #4
+	ldr	r3, [r3, #0]
+	cmp	r2, r3
+	bne	.L60
+	ldr	r3, [fp, #-12]
+	add	r3, r3, #1
+	str	r3, [fp, #-12]
+.L60:
+	ldr	r3, [fp, #-16]
+	add	r3, r3, #1
+	str	r3, [fp, #-16]
+.L58:
+	ldr	r3, [fp, #-16]
+	cmp	r3, #2
+	ble	.L61
+	ldr	r1, .L62+8
+	ldr	r3, [fp, #-32]
+	add	r2, r3, #1
+	ldr	r3, [fp, #-24]
+	ldr	r3, [r3, #0]
+	add	r3, r3, #1
+	ldr	r0, [fp, #-24]
+	add	r0, r0, #4
+	ldr	r0, [r0, #0]
+	add	r0, r0, #1
+	str	r0, [sp, #0]
+	ldr	r0, [fp, #-12]
+	str	r0, [sp, #4]
+	mov	r0, r1
+	mov	r1, r2
+	mov	r2, r3
+	ldr	r3, [fp, #-8]
+	bl	printf
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L63:
+	.align	2
+.L62:
+	.word	.LC24
+	.word	.LC25
+	.word	.LC26
 	.size	tip, .-tip
-	.globl	refreshBoard
-	.type	refreshBoard, @function
+	.align	2
+	.global	refreshBoard
+	.type	refreshBoard, %function
 refreshBoard:
-.LFB8:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movq	%rdi, -8(%rbp)
-	movq	%rsi, -16(%rbp)
-	movq	%rdx, -24(%rbp)
-	movq	-16(%rbp), %rdx
-	movq	-8(%rbp), %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	hit
-	testl	%eax, %eax
-	je	.L51
-	movq	-8(%rbp), %rax
-	movl	(%rax), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-24(%rbp), %rax
-	movq	-8(%rbp), %rdx
-	addq	$4, %rdx
-	movl	(%rdx), %edx
-	movslq	%edx, %rdx
-	movl	$1, (%rax,%rdx,4)
-	jmp	.L50
-.L51:
-	movq	-8(%rbp), %rax
-	movl	(%rax), %eax
-	movslq	%eax, %rdx
-	movq	%rdx, %rax
-	salq	$2, %rax
-	addq	%rdx, %rax
-	salq	$2, %rax
-	addq	-24(%rbp), %rax
-	movq	-8(%rbp), %rdx
-	addq	$4, %rdx
-	movl	(%rdx), %edx
-	movslq	%edx, %rdx
-	movl	$0, (%rax,%rdx,4)
-.L50:
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE8:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #16
+	str	r0, [fp, #-8]
+	str	r1, [fp, #-12]
+	str	r2, [fp, #-16]
+	ldr	r0, [fp, #-8]
+	ldr	r1, [fp, #-12]
+	bl	hit
+	mov	r3, r0
+	cmp	r3, #0
+	beq	.L65
+	ldr	r3, [fp, #-8]
+	ldr	r3, [r3, #0]
+	mov	r2, r3
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-16]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-8]
+	add	r2, r2, #4
+	ldr	r2, [r2, #0]
+	mov	r1, #1
+	str	r1, [r3, r2, asl #2]
+	b	.L64
+.L65:
+	ldr	r3, [fp, #-8]
+	ldr	r3, [r3, #0]
+	mov	r2, r3
+	mov	r3, r2
+	mov	r3, r3, asl #2
+	add	r3, r3, r2
+	mov	r3, r3, asl #2
+	ldr	r2, [fp, #-16]
+	add	r3, r2, r3
+	ldr	r2, [fp, #-8]
+	add	r2, r2, #4
+	ldr	r2, [r2, #0]
+	mov	r1, #0
+	str	r1, [r3, r2, asl #2]
+.L64:
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
 	.size	refreshBoard, .-refreshBoard
 	.section	.rodata
+	.align	2
 .LC27:
-	.string	"Welcome to BattleShip!"
+	.ascii	"Welcome to BattleShip!\000"
+	.align	2
 .LC28:
-	.string	"******** GAME SETUP ********"
-	.align 8
+	.ascii	"******** GAME SETUP ********\000"
+	.align	2
 .LC29:
-	.string	"How would you like hits to be represented\n1) X\n2) H\n3) 1\n4) Y\n "
-	.align 8
+	.ascii	"How would you like hits to be represented\0121) X\012"
+	.ascii	"2) H\0123) 1\0124) Y\012 \000"
+	.align	2
 .LC30:
-	.string	"Enter option (1-4) or any key to exit:"
-	.align 8
+	.ascii	"Enter option (1-4) or any key to exit:\000"
+	.align	2
 .LC31:
-	.string	"\nEnter the maximum number of attempts allowed:"
-	.align 8
+	.ascii	"\012Enter the maximum number of attempts allowed:\000"
+	.align	2
 .LC32:
-	.string	"Number too small; Please enter another number:"
+	.ascii	"Number too small; Please enter another number:\000"
+	.align	2
 .LC33:
-	.string	"Game Over!"
-	.align 8
+	.ascii	"Game Over!\000"
+	.align	2
 .LC34:
-	.string	"\n Would you like to try again? (1 for Yes, Any key for No) "
-	.align 8
+	.ascii	"\012 Would you like to try again? (1 for Yes, Any k"
+	.ascii	"ey for No) \000"
+	.align	2
 .LC35:
-	.string	"\n Mazel Tov! You hit all 3 ships in %d attempts\n"
+	.ascii	"\012 Mazel Tov! You hit all 3 ships in %d attempts\012"
+	.ascii	"\000"
 	.text
-	.globl	main
-	.type	main, @function
+	.align	2
+	.global	main
+	.type	main, %function
 main:
-.LFB9:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$176, %rsp
-	movl	$0, -20(%rbp)
-	movl	$.LC24, %edi
-	call	system
-	movl	$.LC27, %edi
-	call	puts
-	movl	$.LC28, %edi
-	call	puts
-	movl	$.LC29, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC30, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-24(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	%eax, -4(%rbp)
-	call	getchar
-	movl	$.LC31, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	jmp	.L54
-.L56:
-	movl	$.LC17, %eax
-	leaq	-20(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	%eax, -4(%rbp)
-	cmpl	$1, -4(%rbp)
-	jne	.L55
-	movl	-20(%rbp), %eax
-	cmpl	$3, %eax
-	jg	.L55
-	movl	$0, -20(%rbp)
-	movl	$.LC32, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-.L55:
-	call	getchar
-.L54:
-	movl	-20(%rbp), %eax
-	testl	%eax, %eax
-	je	.L56
-	movl	-24(%rbp), %eax
-	cmpl	$1, %eax
-	je	.L57
-	movl	-24(%rbp), %eax
-	cmpl	$2, %eax
-	je	.L57
-	movl	-24(%rbp), %eax
-	cmpl	$3, %eax
-	je	.L57
-	movl	-24(%rbp), %eax
-	cmpl	$4, %eax
-	jne	.L58
-.L57:
-	movl	$.LC24, %edi
-	call	system
-	movl	$0, -12(%rbp)
-	movl	$0, -8(%rbp)
-	leaq	-176(%rbp), %rax
-	movq	%rax, %rdi
-	call	buildBoard
-	leaq	-64(%rbp), %rax
-	movq	%rax, %rdi
-	call	makeShips
-	movl	-20(%rbp), %eax
-	movl	%eax, %edx
-	subl	-12(%rbp), %edx
-	movl	$.LC25, %eax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$10, %edi
-	call	putchar
-.L63:
-	movl	-24(%rbp), %edx
-	leaq	-176(%rbp), %rax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	call	displayBoard
-	leaq	-32(%rbp), %rax
-	movq	%rax, %rdi
-	call	shoot
-	addl	$1, -12(%rbp)
-	leaq	-64(%rbp), %rdx
-	leaq	-32(%rbp), %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	hit
-	testl	%eax, %eax
-	je	.L59
-	movl	-20(%rbp), %ecx
-	movl	-12(%rbp), %edx
-	leaq	-64(%rbp), %rsi
-	leaq	-32(%rbp), %rax
-	movq	%rax, %rdi
-	call	tip
-	addl	$1, -8(%rbp)
-	jmp	.L60
-.L59:
-	movl	-20(%rbp), %ecx
-	movl	-12(%rbp), %edx
-	leaq	-64(%rbp), %rsi
-	leaq	-32(%rbp), %rax
-	movq	%rax, %rdi
-	call	tip
-.L60:
-	leaq	-176(%rbp), %rdx
-	leaq	-64(%rbp), %rcx
-	leaq	-32(%rbp), %rax
-	movq	%rcx, %rsi
-	movq	%rax, %rdi
-	call	refreshBoard
-	movl	-20(%rbp), %eax
-	cmpl	%eax, -12(%rbp)
-	jne	.L61
-	movl	$.LC33, %edi
-	call	puts
-	movl	$.LC34, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-16(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	-16(%rbp), %eax
-	cmpl	$1, %eax
-	jne	.L62
-	movl	$0, %eax
-	call	main
-	jmp	.L61
-.L62:
-	movl	$.LC19, %edi
-	call	puts
-	movl	$0, %edi
-	call	exit
-.L61:
-	cmpl	$3, -8(%rbp)
-	jne	.L63
-	movl	$.LC35, %eax
-	movl	-12(%rbp), %edx
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	-24(%rbp), %edx
-	leaq	-176(%rbp), %rax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	call	displayBoard
-	movl	$.LC34, %eax
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	printf
-	movl	$.LC17, %eax
-	leaq	-16(%rbp), %rdx
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf
-	movl	-16(%rbp), %eax
-	cmpl	$1, %eax
-	jne	.L64
-	movl	$0, %eax
-	call	main
-	nop
-	leave
-	.cfi_remember_state
-	.cfi_def_cfa 7, 8
-	ret
-.L64:
-	.cfi_restore_state
-	movl	$.LC19, %edi
-	call	puts
-	movl	$0, %edi
-	call	exit
-.L58:
-	movl	$.LC19, %edi
-	call	puts
-	movl	$0, %edi
-	call	exit
-	.cfi_endproc
-.LFE9:
+	@ args = 0, pretend = 0, frame = 160
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #160
+	mov	r3, #0
+	str	r3, [fp, #-24]
+	ldr	r0, .L80
+	bl	system
+	ldr	r0, .L80+4
+	bl	puts
+	ldr	r0, .L80+8
+	bl	puts
+	ldr	r3, .L80+12
+	mov	r0, r3
+	bl	printf
+	ldr	r3, .L80+16
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L80+20
+	sub	r3, fp, #20
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	str	r0, [fp, #-16]
+	bl	getchar
+	ldr	r3, .L80+24
+	mov	r0, r3
+	bl	printf
+	b	.L68
+.L70:
+	ldr	r2, .L80+20
+	sub	r3, fp, #24
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	str	r0, [fp, #-16]
+	ldr	r3, [fp, #-16]
+	cmp	r3, #1
+	bne	.L69
+	ldr	r3, [fp, #-24]
+	cmp	r3, #3
+	bgt	.L69
+	mov	r3, #0
+	str	r3, [fp, #-24]
+	ldr	r3, .L80+28
+	mov	r0, r3
+	bl	printf
+.L69:
+	bl	getchar
+.L68:
+	ldr	r3, [fp, #-24]
+	cmp	r3, #0
+	beq	.L70
+	ldr	r3, [fp, #-20]
+	cmp	r3, #1
+	beq	.L71
+	ldr	r3, [fp, #-20]
+	cmp	r3, #2
+	beq	.L71
+	ldr	r3, [fp, #-20]
+	cmp	r3, #3
+	beq	.L71
+	ldr	r3, [fp, #-20]
+	cmp	r3, #4
+	bne	.L72
+.L71:
+	ldr	r0, .L80
+	bl	system
+	mov	r3, #0
+	str	r3, [fp, #-8]
+	mov	r3, #0
+	str	r3, [fp, #-12]
+	sub	r3, fp, #160
+	mov	r0, r3
+	bl	buildBoard
+	sub	r3, fp, #48
+	mov	r0, r3
+	bl	makeShips
+	ldr	r2, .L80+32
+	ldr	r1, [fp, #-24]
+	ldr	r3, [fp, #-8]
+	rsb	r3, r3, r1
+	mov	r0, r2
+	mov	r1, r3
+	bl	printf
+	mov	r0, #10
+	bl	putchar
+.L77:
+	ldr	r3, [fp, #-20]
+	sub	r2, fp, #160
+	mov	r0, r2
+	mov	r1, r3
+	bl	displayBoard
+	sub	r3, fp, #56
+	mov	r0, r3
+	bl	shoot
+	ldr	r3, [fp, #-8]
+	add	r3, r3, #1
+	str	r3, [fp, #-8]
+	sub	r2, fp, #56
+	sub	r3, fp, #48
+	mov	r0, r2
+	mov	r1, r3
+	bl	hit
+	mov	r3, r0
+	cmp	r3, #0
+	beq	.L73
+	ldr	r3, [fp, #-24]
+	sub	r1, fp, #56
+	sub	r2, fp, #48
+	mov	r0, r1
+	mov	r1, r2
+	ldr	r2, [fp, #-8]
+	bl	tip
+	ldr	r3, [fp, #-12]
+	add	r3, r3, #1
+	str	r3, [fp, #-12]
+	b	.L74
+.L73:
+	ldr	r3, [fp, #-24]
+	sub	r1, fp, #56
+	sub	r2, fp, #48
+	mov	r0, r1
+	mov	r1, r2
+	ldr	r2, [fp, #-8]
+	bl	tip
+.L74:
+	sub	r1, fp, #56
+	sub	r2, fp, #48
+	sub	r3, fp, #160
+	mov	r0, r1
+	mov	r1, r2
+	mov	r2, r3
+	bl	refreshBoard
+	ldr	r3, [fp, #-24]
+	ldr	r2, [fp, #-8]
+	cmp	r2, r3
+	bne	.L75
+	ldr	r0, .L80+36
+	bl	puts
+	ldr	r3, .L80+40
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L80+20
+	sub	r3, fp, #60
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-60]
+	cmp	r3, #1
+	bne	.L76
+	bl	main
+	b	.L75
+.L76:
+	ldr	r0, .L80+44
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L75:
+	ldr	r3, [fp, #-12]
+	cmp	r3, #3
+	bne	.L77
+	ldr	r3, .L80+48
+	mov	r0, r3
+	ldr	r1, [fp, #-8]
+	bl	printf
+	ldr	r3, [fp, #-20]
+	sub	r2, fp, #160
+	mov	r0, r2
+	mov	r1, r3
+	bl	displayBoard
+	ldr	r3, .L80+40
+	mov	r0, r3
+	bl	printf
+	ldr	r2, .L80+20
+	sub	r3, fp, #60
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-60]
+	cmp	r3, #1
+	bne	.L78
+	bl	main
+	mov	r0, r0	@ nop
+	mov	r0, r3
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L78:
+	ldr	r0, .L80+44
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L72:
+	ldr	r0, .L80+44
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L81:
+	.align	2
+.L80:
+	.word	.LC24
+	.word	.LC27
+	.word	.LC28
+	.word	.LC29
+	.word	.LC30
+	.word	.LC17
+	.word	.LC31
+	.word	.LC32
+	.word	.LC25
+	.word	.LC33
+	.word	.LC34
+	.word	.LC19
+	.word	.LC35
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
-	.section	.note.GNU-stack,"",@progbits
+	.ident	"GCC: (Debian 4.6.3-14+rpi1) 4.6.3"
+	.section	.note.GNU-stack,"",%progbits
