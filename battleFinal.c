@@ -3,6 +3,7 @@
 #include <time.h>
 
 int theRow();
+int rowCheck();
 int column();
 void shoot(int*);
 void makeShips(int(*)[2]);
@@ -95,6 +96,7 @@ int theRow() {
 	int row;
 	int ta;
 	int check;
+	int info;
 	printf("Enter the row you would like to target: ");
 	check = scanf("%d", &row);
 
@@ -112,6 +114,7 @@ int theRow() {
 		if ((row > 5) || (row < 1)) {
 			printf("Out of range! You must choose between 1 and 5.\n");
 			getchar();
+			info = rowCheck();
 			row = theRow();
 		} 
 	} else {
@@ -264,4 +267,23 @@ int main() {
 		printf("Thanks for playing!\n");
 		exit(0);
 	}
+}
+
+int rowCheck () {
+	int rowAns;
+	int reAns;
+	printf ("Do you wish to continue, reset or exit the game? (1 for Yes, 2 for Reset and Any key to Continue)\n");
+		scanf ("%d", &rowAns);
+		if (rowAns == 1) {
+			printf("Thanks for playing!\n");
+			exit(0);
+		}
+		else if (rowAns == 2) {
+			printf("Are you sure you want to restart the game? (1 for Yes, Any key for No)\n");
+			scanf ("%d", &reAns);
+			if (reAns == 1) {
+				main();
+			}
+		}
+		getchar();
 }

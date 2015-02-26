@@ -499,7 +499,7 @@ theRow:
 	mov	r0, r3
 	bl	printf
 	ldr	r2, .L40+4
-	sub	r3, fp, #12
+	sub	r3, fp, #16
 	mov	r0, r2
 	mov	r1, r3
 	bl	__isoc99_scanf
@@ -507,18 +507,18 @@ theRow:
 	ldr	r3, [fp, #-8]
 	cmp	r3, #1
 	bne	.L35
-	ldr	r3, [fp, #-12]
+	ldr	r3, [fp, #-16]
 	cmp	r3, #0
 	bne	.L36
 	ldr	r3, .L40+8
 	mov	r0, r3
 	bl	printf
 	ldr	r2, .L40+4
-	sub	r3, fp, #16
+	sub	r3, fp, #20
 	mov	r0, r2
 	mov	r1, r3
 	bl	__isoc99_scanf
-	ldr	r3, [fp, #-16]
+	ldr	r3, [fp, #-20]
 	cmp	r3, #1
 	bne	.L37
 	bl	main
@@ -529,19 +529,21 @@ theRow:
 	mov	r0, #0
 	bl	exit
 .L36:
-	ldr	r3, [fp, #-12]
+	ldr	r3, [fp, #-16]
 	cmp	r3, #5
 	bgt	.L38
-	ldr	r3, [fp, #-12]
+	ldr	r3, [fp, #-16]
 	cmp	r3, #0
 	bgt	.L39
 .L38:
 	ldr	r0, .L40+16
 	bl	puts
 	bl	getchar
+	bl	rowCheck
+	str	r0, [fp, #-12]
 	bl	theRow
 	mov	r3, r0
-	str	r3, [fp, #-12]
+	str	r3, [fp, #-16]
 	b	.L39
 .L35:
 	ldr	r0, .L40+20
@@ -549,9 +551,9 @@ theRow:
 	bl	getchar
 	bl	theRow
 	mov	r3, r0
-	str	r3, [fp, #-12]
+	str	r3, [fp, #-16]
 .L39:
-	ldr	r3, [fp, #-12]
+	ldr	r3, [fp, #-16]
 	mov	r0, r3
 	sub	sp, fp, #4
 	ldmfd	sp!, {fp, pc}
@@ -1125,5 +1127,66 @@ main:
 	.word	.LC19
 	.word	.LC35
 	.size	main, .-main
+	.section	.rodata
+	.align	2
+.LC36:
+	.ascii	"Do you wish to continue, reset or exit the game? (1"
+	.ascii	" for Yes, 2 for Reset and Any key to Continue)\000"
+	.align	2
+.LC37:
+	.ascii	"Are you sure you want to restart the game? (1 for Y"
+	.ascii	"es, Any key for No)\000"
+	.text
+	.align	2
+	.global	rowCheck
+	.type	rowCheck, %function
+rowCheck:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 1, uses_anonymous_args = 0
+	stmfd	sp!, {fp, lr}
+	add	fp, sp, #4
+	sub	sp, sp, #8
+	ldr	r0, .L85
+	bl	puts
+	ldr	r2, .L85+4
+	sub	r3, fp, #8
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-8]
+	cmp	r3, #1
+	bne	.L83
+	ldr	r0, .L85+8
+	bl	puts
+	mov	r0, #0
+	bl	exit
+.L83:
+	ldr	r3, [fp, #-8]
+	cmp	r3, #2
+	bne	.L84
+	ldr	r0, .L85+12
+	bl	puts
+	ldr	r2, .L85+4
+	sub	r3, fp, #12
+	mov	r0, r2
+	mov	r1, r3
+	bl	__isoc99_scanf
+	ldr	r3, [fp, #-12]
+	cmp	r3, #1
+	bne	.L84
+	bl	main
+.L84:
+	bl	getchar
+	mov	r0, r3
+	sub	sp, fp, #4
+	ldmfd	sp!, {fp, pc}
+.L86:
+	.align	2
+.L85:
+	.word	.LC36
+	.word	.LC17
+	.word	.LC19
+	.word	.LC37
+	.size	rowCheck, .-rowCheck
 	.ident	"GCC: (Debian 4.6.3-14+rpi1) 4.6.3"
 	.section	.note.GNU-stack,"",%progbits
